@@ -17,7 +17,7 @@ $color-pink2: #F1E4E6
 $color-pink3: #F26376
 $color-pink4: #FF6A6A
 $color-grey: #E8E8E8
-$color-grey2: #9F9F9F
+$color-grey2: #6F6E6E
 $color-grey3: #5D5D5D
 $color-grey4: #F8F8F8
 $color-grey5: #E1E1E1
@@ -43,6 +43,9 @@ body
 li
     list-style-type: none
 
+a
+    text-decoration: none
+
 .dark
     position: relative
 .dark:after
@@ -56,7 +59,7 @@ li
     height: 100%
     background: rgba(33, 22, 22, 0.7)
 
-.main-section
+.main-page, .catalog-page
     min-height: 100vh
     display: grid
     grid-template-rows: minmax(75px, auto) 1fr minmax(79px, auto)
@@ -70,6 +73,8 @@ li
             min-height: 100%
             .logo
                 padding-right: 41px
+                cursor: pointer
+                display: block
             .nav__block-block-left, .nav__block-block-right
                 display: flex
                 align-items: center
@@ -96,6 +101,7 @@ li
                             font-size: 12px
         .menu[hidden]
             opacity: 0
+            visibility: hidden
             margin-top: 20px
         .menu
             position: absolute
@@ -132,19 +138,44 @@ li
                         line-height: 17px
                         color: #6F6E6E
                         cursor: pointer
-                    li:first-child
+                    li:first-child, a
                         color: $color-pink
                         padding-bottom: 12px
                         padding-left: 0
-
-    .section-1
+    footer .container
+        display: grid
+        grid-template-columns: repeat(2, 1fr)
+        grid-auto-rows: minmax(79px, auto)
+        grid-template-areas: "right-reserved social-network"
+        justify-items: start
+        align-items: center
+        .right-reserved
+            grid-area: right-reserved
+            font-size: 16px
+            line-height: 19px
+        .social-network
+            grid-area: social-network
+            justify-self: end
+            .icon
+                padding: 7px 7px
+                background-color: $color-white
+                width: 14px
+                height: 14px
+                margin-right: 2px
+                transition: ease-out 0.35s
+                cursor: pointer
+                &:hover
+                    background-color: $color-pink4
+                    path
+                        fill: $color-white
+    .main-page__top-block
         display: grid
         grid-template-columns: 1fr 1fr
         background-color: $color-pink2
         min-height: 376px
-        .section-1__1, .section-1__2
+        .main-page__top-block__1, .main-page__top-block__2
             display: flex
-        .section-1__2
+        .main-page__top-block__2
             align-items: center
             .text-group
                 border-left: 12px solid $color-pink
@@ -158,21 +189,42 @@ li
                     line-height: 38px
                 .text-group__3
                     color: $color-pink
-    .section-2
+    .catalog-page__top-block
+        background-color: $color-pink2
+        .catalog-page__wrap
+            display: flex
+            justify-content: space-between
+            align-items: center
+            min-height: 148px
+            .catalog-page__top-block__1, .catalog-page__top-block__2
+                text-transform: uppercase
+            .catalog-page__top-block__1
+                font-size: 24px
+                line-height: 29px
+                color: $color-pink
+            .catalog-page__top-block__2, a
+                font-weight: 300
+                font-size: 14px
+                line-height: 17px
+                color: #636363
+                .accent
+                    color: $color-pink
+                    font-weight: 400
+    .categories-block
         display: grid
         padding-top: 65px
         grid-gap: 30px
         grid-template-columns: repeat(3, 1fr)
         grid-auto-rows: minmax(111px, auto)
-        grid-template-areas: "section-2__1 section-2__2 section-2__3" "section-2__4 section-2__4 section-2__4"
-        .section-2__1
-            grid-area: section-2__1
-        .section-2__2
-            grid-area: section-2__2
-        .section-2__3
-            grid-area: section-2__3
-        .section-2__4
-            grid-area: section-2__4
+        grid-template-areas: "categories-block__1 categories-block__2 categories-block__3" "categories-block__4 categories-block__4 categories-block__4"
+        .categories-block__1
+            grid-area: categories-block__1
+        .categories-block__2
+            grid-area: categories-block__2
+        .categories-block__3
+            grid-area: categories-block__3
+        .categories-block__4
+            grid-area: categories-block__4
         .wrap
             position: absolute
             top: 40%
@@ -187,8 +239,98 @@ li
                 font-size: 24px
                 font-weight: 700
                 color: $color-pink
-    .section-3
-        .section-3__title
+    .filters-block
+        display: grid
+        grid-gap: 30px
+        grid-template-columns: 1fr 2fr
+        grid-template-rows: auto
+        grid-template-areas: "filters-block__1 filters-block__2 filters-block__2"
+        padding-top: 51px
+        cursor: pointer
+        .filters-block__1
+            grid-area: filters-block__1
+            &:hover
+                .filters-block__menu
+                    opacity: 1
+                    color: $color-pink
+                path
+                    fill: $color-pink
+            .filter-text
+                font-weight: 600
+                font-size: 14px
+                line-height: 17px
+                padding-right: 11px
+                &:hover
+                    .filters-block__menu
+                        opacity: 1
+                        color: $color-pink
+                    path
+                        fill: $color-pink
+
+        .filters-block__2
+            grid-area: filters-block__2
+            font-size: 14px
+            line-height: 17px
+            .filter
+                padding-right: 28px
+                color: $color-grey2
+                cursor: pointer
+                .arrow-down-icon
+                    height: 5px
+                    vertical-align: middle
+                    padding-left: 10px
+        .filters-block__menu
+            position: absolute
+            width: 360px
+            min-height: 531px
+            z-index: 2
+            background-color: $color-white
+            @include box-shadow(0 0 20px rgba(50, 50, 50, 0.15))
+            padding: 13px 17px
+            margin: -32px 0 0 -17px
+            opacity: 0
+            transition: 0.5s ease
+            ul
+                li
+                    font-size: 14px
+                    line-height: 17px
+                    color: $color-grey2
+                    padding-bottom: 11px
+                li:first-child, a
+                    color: $color-pink
+                    padding: 11px
+                    margin-top: 24px
+                    border-left: solid 5px $color-pink
+                    border-bottom: solid 1px #EBEBEB
+                li:nth-child(2)
+                    padding-top: 24px
+        .filter-size
+            display: inline-block
+            padding-top: 5px
+            .filters-size-menu
+                position: absolute
+                width: 69px
+                z-index: 2
+                background-color: $color-white
+                @include box-shadow(0 0 20px rgba(50, 50, 50, 0.15))
+                padding: 10px
+                opacity: 0
+                margin-top: 5px
+                transition: 0.5s ease
+                .list-size
+                    display: flex
+                    flex-direction: column
+                    align-items: flex-start
+                    li
+                        padding-top: 9px
+                        input
+                            margin-right: 9px
+            &:hover .filters-size-menu
+                opacity: 1
+
+    .products
+        padding-top: 64px
+        .products__title
             text-align: center
             padding: 96px 0 48px 0
             h1
@@ -200,25 +342,25 @@ li
                 font-size: 14px
                 line-height: 16.8px
                 font-weight: 400
-        .section-3__cards
+        .products__cards
             display: grid
             grid-gap: 30px
             grid-template-columns: repeat(3, 1fr)
             grid-template-rows: auto
             grid-auto-rows: minmax(auto, 581px)
-            grid-template-areas: "section-3__1 section-3__2 section-3__3" "section-3__4 section-3__5 section-3__6"
-            .section-3__1
-                grid-area: section-3__1
-            .section-3__2
-                grid-area: section-3__2
-            .section-3__3
-                grid-area: section-3__3
-            .section-3__4
-                grid-area: section-3__4
-            .section-3__5
-                grid-area: section-3__5
-            .section-3__6
-                grid-area: section-3__6
+            grid-template-areas: "products__1 products__2 products__3" "products__4 products__5 products__6"
+            .products__1
+                grid-area: products__1
+            .products__2
+                grid-area: products__2
+            .products__3
+                grid-area: products__3
+            .products__4
+                grid-area: products__4
+            .products__5
+                grid-area: products__5
+            .products__6
+                grid-area: products__6
             img
                 object-fit: cover
                 height: 420px
@@ -229,6 +371,7 @@ li
             .text-block
                 padding: 0 20px 20px 18px
                 .subtittle
+                    font-weight: 600
                     font-size: 13px
                     line-height: 16px
                     text-transform: uppercase
@@ -272,7 +415,27 @@ li
                                 margin-right: 8px
                 &:hover .wrap .overlay
                     opacity: 1
-
+            .cursor_default
+                cursor: default
+    .paginator
+        font-weight: 300
+        font-size: 16px
+        line-height: 19px
+        color: $color-grey2
+        max-width: 320px
+        margin: 0 auto
+        padding-top: 48px
+        .paginator-wrap
+            display: -webkit-box
+            display: -ms-flexbox
+            display: flex
+            align-items: center
+            justify-content: space-evenly
+            padding: 12px 40px
+            border: solid 1px $color-grey
+            border-radius: 5px
+            .color-red
+                color: $color-pink
     .wrap-btn
         display: flex
         justify-content: center
@@ -286,8 +449,7 @@ li
             &:hover
                 color: $color-white
                 background-color: $color-pink4
-
-    .section-4
+    .feature-block
         margin-top: 95px
         background-color: $color-black2
         .items
@@ -322,7 +484,7 @@ li
                     font-size: 14px
                     line-height: 17px
                     max-width: 300px
-    .section-5
+    .subscribe-block
         position: relative
         background-image: url(./images/png/bckg-1.jpg)
         background-size: cover
@@ -399,13 +561,13 @@ li
             right: 0
             bottom: 0
             background-color: rgba(244, 244, 244, 0.7)
-    footer .container
-        display: grid
-        grid-template-columns: repeat(2, 1fr)
-        grid-auto-rows: minmax(79px, auto)
-        grid-template-areas: "right-reserved social-network"
-        justify-items: start
-        align-items: center
+
+            display: grid
+            grid-template-columns: repeat(2, 1fr)
+            grid-auto-rows: minmax(79px, auto)
+            grid-template-areas: "right-reserved social-network"
+            justify-items: start
+            align-items: center
         .right-reserved
             grid-area: right-reserved
             font-size: 16px
@@ -432,26 +594,30 @@ li
         margin-right: 32px
 
 @media (max-width: 1024px)
-    .main-section .section-2 .thin
-        top: 35%
+    .main-page, .catalog-page
+        .categories-block .thin
+            top: 35%
 
 @media (max-width: 768px)
-    .main-section .section-1 .section-1__2 .text-group
+    .main-page, .catalog-page
+        .main-page__top-block .main-page__top-block__2 .text-group
         .text-group__1
             font-size: 44px
-        .text-group__2, .text-group__3
-            font-size: 24px
-    .main-section
-        .section-2
+            .text-group__2, .text-group__3
+                font-size: 24px
+    .main-page, .catalog-page
+        .categories-block
             grid-gap: 20px
             padding-top: 20px
-        .section-2 .thin
+        .categories-block .thin
             top: 30%
-        .section-3 .section-3__cards
+        .products .products__cards
             grid-gap: 16px
             grid-template-columns: repeat(2, 1fr)
-            grid-template-areas: "section-3__1 section-3__2" "section-3__3 section-3__4" "section-3__5 section-3__6"
-        .section-4 .items
+            grid-template-areas: "products__1 products__2" "products__3 products__4" "products__5 products__6"
+            .card:last-child
+                display: none
+        .feature-block .items
             grid-gap: 0
             grid-auto-rows: auto
             grid-template-columns: repeat(1, 1fr)
@@ -459,7 +625,7 @@ li
             padding: 25px 0
             .item
                 padding: 25px 0
-        .section-5
+        .subscribe-block
             background-position-x: 22%
             .items
                 padding-top: 54px
@@ -472,46 +638,82 @@ li
                     .block-subscribe
                         margin-top: 27px
                         margin-bottom: 140px
+        .filters-block
+            grid-template-columns: 1fr 1fr
+            .filters-block__2
+                text-align: right
+                .filter:last-child
+                    padding-right: 0
 
 @media (max-width: 425px)
     .container
         margin-left: 12px
         margin-right: 12px
-    .main-section
+    .main-page, .catalog-page
         .nav .nav__block-block-right
             .menu-icon
                 padding-right: 0
             .user-icon, .wrap
                 display: none
-        .section-1 .section-1__2 .text-group
+        .main-page__top-block .main-page__top-block__2 .text-group
             .text-group__1
                 font-size: 38px
             .text-group__2, .text-group__3
                 font-size: 20px
-        .section-1
+        .main-page__top-block
             grid-template-columns: 1fr
-            .section-1__1
+            .main-page__top-block__1
                 display: none
-            .section-1__2
+            .main-page__top-block__2
                 justify-content: center
                 .text-group
                     .text-group__2, .text-group__3
                         line-height: 24px
-        .section-2
+        .catalog-page__top-block .catalog-page__wrap
+            display: -webkit-box
+            display: -ms-flexbox
+            display: flex
+            -webkit-box-pack: justify
+            -ms-flex-pack: justify
+            justify-content: center
+            -webkit-box-align: center
+            -ms-flex-align: center
+            align-items: center
+            min-height: 148px
+            flex-direction: column
+            .catalog-page__top-block__1
+                padding-bottom: 32px
+        .filters-block
+            display: flex
+            grid-gap: unset
+            justify-content: space-between
+            .burger-icon2
+                height: 25px
+                width: 37.5px
+            .filters-block__1 .filter-text
+                display: none
+            .filters-block__2
+                .filter
+                    padding-right: 24px
+                    .arrow-down-icon
+                        padding-left: 9px
+            .filters-block__menu
+                margin: -40px 0 0 -17px
+        .categories-block
             grid-gap: 32px
             padding: 64px 0
             grid-template-columns: repeat(1, 1fr)
-            grid-template-areas: "section-2__1" "section-2__2" "section-2__3" "section-2__4"
+            grid-template-areas: "categories-block__1" "categories-block__2" "categories-block__3" "categories-block__4"
             .wrap
                 top: 45%
             .thin
                 top: 30%
-        .section-3 .section-3__cards
+        .products .products__cards
             grid-template-columns: repeat(1, 1fr)
-            grid-template-areas: "section-3__1" "section-3__2" "section-3__3" "section-3__4" "section-3__5" "section-3__6"
-        .section-3 .section-3__title
+            grid-template-areas: "products__1" "products__2" "products__3" "products__4" "products__5" "products__6"
+        .products .products__title
             padding: 0 0 65px 0
-        .section-5 .items
+        .subscribe-block .items
             .items__1
                 padding-bottom: 0
             .wrap
@@ -524,10 +726,11 @@ li
                 .block-subscribe
                     margin-top: 22px
                     margin-bottom: 109px
-    .main-section footer .container
-        justify-items: center
-        grid-template-columns: repeat(1, 1fr)
-        grid-template-rows: 95px 40px
-        grid-template-areas: "social-network" "right-reserved"
-        .social-network
-            justify-self: center
+    .main-page, .catalog-page
+        footer .container
+            justify-items: center
+            grid-template-columns: repeat(1, 1fr)
+            grid-template-rows: 95px 40px
+            grid-template-areas: "social-network" "right-reserved"
+            .social-network
+                justify-self: center
