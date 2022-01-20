@@ -615,8 +615,6 @@ a
             grid-gap: 16px
             grid-template-columns: repeat(2, 1fr)
             grid-template-areas: "products__1 products__2" "products__3 products__4" "products__5 products__6"
-            .card:last-child
-                display: none
         .feature-block .items
             grid-gap: 0
             grid-auto-rows: auto
@@ -644,7 +642,8 @@ a
                 text-align: right
                 .filter:last-child
                     padding-right: 0
-
+    .catalog-page .card:last-child
+        display: none
 @media (max-width: 425px)
     .container
         margin-left: 12px
